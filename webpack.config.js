@@ -5,7 +5,7 @@ const {exec} = require("child_process")
 class ClientDirectivePlugin {
     constructor(options) {
         this.outputPath = options.outputPath || '/dist/clientManifest.json';
-        this.entrypointOutput = options.entrypointOutput || '/dist/clientManifest.json';
+        this.entrypointOutput = options.entrypointOutput || '/dist/entrypoints.json';
     }
 
     apply(compiler) {
