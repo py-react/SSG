@@ -9,9 +9,9 @@ export const Layout = ({ title,scripts, children }) => (
       ))}
     </head>
     <body>
-      <div id="root">
+      <main id="root">
         {children}
-      </div>
+      </main>
     </body>
   </html>
 );

@@ -5,9 +5,7 @@
   "main": "generate.js",
   "scripts": {
     "build-webpack": "rm -rf dist && webpack",
-    "build": "babel src --out-dir dist/babel_build",
-    "generate": "node dist/generate.js",
-    "build-generate-file": "babel generate.js fileUtils.js --out-dir dist"
+    "build": "babel src --out-dir dist/babel_build"
   },
   "keywords": [],
   "author": "“yksandeep”",

@@ -1,6 +1,11 @@
 import React from 'react';
-import { createRoot,hydrateRoot } from 'react-dom/client';
+import { hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from "./app";
-const root = createRoot(document.getElementById('root'));
-root.render(<BrowserRouter><App/></BrowserRouter>);
+
+function handleHydrationError(error,errorInfo){
+    console.error({error,errorInfo})
+    throw new Error(error)
+}
+hydrateRoot(document.getElementById('root'),<BrowserRouter><App/></BrowserRouter>,{onRecoverableError:handleHydrationError});
+

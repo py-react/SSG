@@ -1,54 +1,28 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import About from './pages/about/about';
-import SecondAbout from './pages/about';
-import Home from './pages';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { routes } from "./routes";
+import { Outlet } from "react-router-dom";
 
-const loadModule = async(path)=>{
-    return await import(`${path}`)
-}
-
-// Helper function to render routes
-const renderRoutes = async (routesPath) => {
-    const allRoutes = await loadModule(routesPath)
-    const traverseRoutes = (routes) => {
-        return routes.map(async (route, index) => (
-          route.routes ? (
-            <Route
-              key={index}
-              path={route.path}
-              exact
-            >
-              <Route
-                exact
-                path={route.path}
-                component={await loadModule(`./pages${route.path}`)}
-              />
-              {traverseRoutes(route.routes)}
-            </Route>
-          ) : (
-            <Route
-              key={index}
-              path={route.path}
-              exact
-              component={await loadModule(`./pages${route.path}`)}
-            />
-          )
-        ));
-    }
-    traverseRoutes(allRoutes)
+const renderRoutes = (routeConfig) => {
+  return (
+    <React.Fragment>
+      {routeConfig.map((route, index) => (
+        <Route key={index} path={route.path} element={<Outlet/>}>
+          <Route index element={route.element}/>
+          <React.Fragment>
+            {route.children && renderRoutes(route.children)}
+          </React.Fragment>
+        </Route>
+      ))}
+    </React.Fragment>
+  );
 };
 
 const App = () => {
   return (
-    <React.Suspense >
-      <Routes>
-        <Route path='/about/about' element={<About />}></Route>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='/about' element={<SecondAbout />}></Route>
-        {/* {renderRoutes("./routes")} */}
-      </Routes>
-    </React.Suspense>
+    <Routes>
+      <React.Fragment>{renderRoutes(routes)}</React.Fragment>
+    </Routes>
   );
 };
 

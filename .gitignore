@@ -8,3 +8,4 @@ gingerjs.egg-info
 __build__
 ginger_js.egg-in
 ginger_js.egg-info
+src/routes.js
